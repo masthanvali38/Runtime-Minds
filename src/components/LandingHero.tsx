@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { ArrowRight, Upload, Check, Sparkles, FolderGit2 } from 'lucide-react';
 import { Repository, RepoFile } from '../types';
 import { IsometricCodebaseCity } from './IsometricCodebaseCity';
+import { IbmSymbol } from './IbmLogo';
 
 interface LandingHeroProps {
   currentRepo: Repository;
@@ -44,10 +45,17 @@ export const LandingHero: React.FC<LandingHeroProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
         {/* Left Column: Hero Text & Repository Input */}
         <div className="lg:col-span-6 space-y-6">
-          {/* Top Pill (Exact match to screenshot's top badge) */}
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-gray-200 bg-white text-xs font-sans text-gray-600 shadow-2xs">
-            <span className="w-2 h-2 rounded-full bg-blue-600" />
-            <span className="text-[11px] font-medium">Runtime Minds — AI Developer Workflow Assistant</span>
+          {/* Top Pill - IBM BOB & Symbol (at this only) */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-gray-200/90 bg-white text-xs font-sans text-gray-800 shadow-2xs hover:border-gray-300 transition">
+            {/* IBM 8-bar Symbol */}
+            <IbmSymbol className="w-4 h-3.5 text-[#0f62fe] shrink-0" />
+            <span className="text-[11px] font-bold text-gray-900 font-mono tracking-wider">
+              IBM BOB
+            </span>
+            <span className="w-1 h-1 rounded-full bg-gray-300" />
+            <span className="text-[11px] text-gray-600 font-medium">
+              AI Developer Workflow Assistant
+            </span>
           </div>
 
           {/* Large Editorial Headline (Crisp, pure black, tight leading) */}

@@ -6,7 +6,7 @@ export async function checkAiStatus(): Promise<{ aiEnabled: boolean; model: stri
     const res = await fetch('/api/status');
     if (res.ok) {
       const data = await res.json();
-      return { aiEnabled: data.aiEnabled, model: data.model || 'gemini-3.8-flash' };
+      return { aiEnabled: data.aiEnabled, model: data.model || 'gemini-3.5-flash' };
     }
   } catch (err) {
     console.warn('Backend status check failed, using local engine:', err);

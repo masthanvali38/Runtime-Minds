@@ -38,7 +38,7 @@ export default function App() {
 
   // AI & Server status
   const [isAiEnabled, setIsAiEnabled] = useState<boolean>(true);
-  const [modelName, setModelName] = useState<string>('gemini-3.8-flash');
+  const [modelName, setModelName] = useState<string>('gemini-3.5-flash');
 
   // Loading states
   const [isAnalyzingBug, setIsAnalyzingBug] = useState<boolean>(false);

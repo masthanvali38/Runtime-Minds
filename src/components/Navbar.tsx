@@ -10,6 +10,7 @@ import {
   Layers
 } from 'lucide-react';
 import { Repository } from '../types';
+import { IbmSymbol } from './IbmLogo';
 
 interface NavbarProps {
   currentTab: string;
@@ -30,8 +31,8 @@ export const Navbar: React.FC<NavbarProps> = ({
 }) => {
   return (
     <header className="h-16 bg-[#fafafa]/95 backdrop-blur-sm border-b border-gray-200/80 px-6 sm:px-10 flex items-center justify-between sticky top-0 z-40 select-none">
-      {/* Left: Minimal Runtime Minds Logo */}
-      <div className="flex items-center gap-3">
+      {/* Left: Minimal Runtime Minds Logo + IBM BOB */}
+      <div className="flex items-center gap-2.5">
         <button
           onClick={onGoHome}
           className="flex items-center gap-2.5 text-left group transition"
@@ -43,6 +44,14 @@ export const Navbar: React.FC<NavbarProps> = ({
             Runtime Minds
           </span>
         </button>
+
+        <span className="text-gray-300 select-none">/</span>
+
+        {/* IBM BOB Badge */}
+        <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-blue-50/80 border border-blue-200/80 text-[11px] font-mono font-bold text-blue-800 shadow-2xs">
+          <IbmSymbol className="w-3.5 h-3 text-[#0f62fe] shrink-0" />
+          <span>IBM BOB</span>
+        </div>
       </div>
 
       {/* Right: Minimal Navigation */}
@@ -101,6 +110,13 @@ export const Navbar: React.FC<NavbarProps> = ({
             ))}
           </select>
           <ChevronDown className="w-3 h-3 text-gray-400 absolute right-2 pointer-events-none" />
+        </div>
+
+        {/* AI Model Badge */}
+        <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-blue-50/80 border border-blue-200/80 text-[11px] font-mono text-blue-700 font-semibold" title="AI Model: Gemini 3.5 Flash">
+          <IbmSymbol className="w-3.5 h-3 text-[#0f62fe] shrink-0" />
+          <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
+          <span>IBM BOB · Gemini 3.5 Flash</span>
         </div>
 
         {/* Subtle Theme/Status icon */}

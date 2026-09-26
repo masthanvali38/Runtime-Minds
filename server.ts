@@ -19,10 +19,31 @@ const apiKey = process.env.GEMINI_API_KEY;
 if (apiKey && apiKey !== 'MY_GEMINI_API_KEY') {
   try {
     genAI = new GoogleGenAI({ apiKey });
-    console.log('[Runtime Minds] Gemini AI client initialized with gemini-3.8-flash.');
+    console.log('[Runtime Minds] Gemini AI client initialized with gemini-3.5-flash.');
   } catch (err) {
     console.warn('[Runtime Minds] Could not initialize Gemini client:', err);
   }
+}
+
+// Helper to call Gemini with gemini-3.5-flash priority and fallback
+async function callGemini(contents: string): Promise<string | null> {
+  if (!genAI) return null;
+  const modelsToTry = ['gemini-3.5-flash', 'gemini-3.8-flash', 'gemini-2.5-flash'];
+  for (const modelName of modelsToTry) {
+    try {
+      const response = await genAI.models.generateContent({
+        model: modelName,
+        contents,
+        config: {
+          responseMimeType: 'application/json'
+        }
+      });
+      if (response.text) return response.text;
+    } catch (err) {
+      console.warn(`[Runtime Minds] Attempt with ${modelName} encountered error, trying fallback...`);
+    }
+  }
+  return null;
 }
 
 // 1. Status endpoint
@@ -30,7 +51,7 @@ app.get('/api/status', (req, res) => {
   res.json({
     status: 'ok',
     aiEnabled: !!genAI,
-    model: 'gemini-3.8-flash',
+    model: 'gemini-3.5-flash',
     version: '1.0.0'
   });
 });
@@ -95,15 +116,7 @@ Analyze this bug thoroughly and respond with a strict JSON object (no markdown f
   }
 }`;
 
-      const aiResponse = await genAI.models.generateContent({
-        model: 'gemini-3.8-flash',
-        contents: prompt,
-        config: {
-          responseMimeType: 'application/json'
-        }
-      });
-
-      const responseText = aiResponse.text;
+      const responseText = await callGemini(prompt);
       if (responseText) {
         const parsed = JSON.parse(responseText);
         return res.json(parsed);
@@ -164,15 +177,7 @@ Analyze what else in the repository could be affected. Respond with a strict JSO
   ]
 }`;
 
-      const aiResponse = await genAI.models.generateContent({
-        model: 'gemini-3.8-flash',
-        contents: prompt,
-        config: {
-          responseMimeType: 'application/json'
-        }
-      });
-
-      const responseText = aiResponse.text;
+      const responseText = await callGemini(prompt);
       if (responseText) {
         const parsed = JSON.parse(responseText);
         return res.json(parsed);

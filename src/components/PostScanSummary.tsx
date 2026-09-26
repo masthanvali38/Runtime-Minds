@@ -1,6 +1,7 @@
 import React from 'react';
 import { Bug, Activity, Stethoscope, ArrowRight, CheckCircle2, FileCode, Layers, GitBranch } from 'lucide-react';
 import { Repository, RepositoryWideBugReport } from '../types';
+import { IbmSymbol } from './IbmLogo';
 
 interface PostScanSummaryProps {
   repository: Repository;
@@ -20,11 +21,16 @@ export const PostScanSummary: React.FC<PostScanSummaryProps> = ({
       {/* Repository Analyzed Header */}
       <div className="border-b border-gray-200 pb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 mb-1.5">
+          <div className="flex flex-wrap items-center gap-2 mb-1.5">
             <span className="w-2 h-2 rounded-full bg-emerald-500" />
             <span className="text-xs font-mono font-semibold uppercase tracking-wider text-gray-500">
               Repository analyzed
             </span>
+            <span className="text-gray-300">•</span>
+            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md bg-blue-50 border border-blue-200 text-[11px] font-mono font-semibold text-blue-800">
+              <IbmSymbol className="w-3.5 h-3 text-[#0f62fe] shrink-0" />
+              <span>IBM BOB · Gemini 3.5 Flash</span>
+            </div>
           </div>
 
           <h1 className="text-3xl font-bold font-mono text-gray-900 tracking-tight">

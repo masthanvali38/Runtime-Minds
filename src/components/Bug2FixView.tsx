@@ -36,6 +36,7 @@ import {
   RepositoryBug,
   FileHealthSummary
 } from '../types';
+import { IbmSymbol } from './IbmLogo';
 
 interface Bug2FixViewProps {
   repository: Repository;
@@ -250,10 +251,14 @@ export const Bug2FixView: React.FC<Bug2FixViewProps> = ({
       {/* HEADER SECTION */}
       <div className="border-b border-gray-200 pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 mb-1.5">
+          <div className="flex flex-wrap items-center gap-2 mb-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-purple-600 animate-pulse" />
             <span className="text-xs font-mono font-bold tracking-widest text-purple-700 uppercase">
               BUG2FIX — REPOSITORY-WIDE BUG SCANNER
+            </span>
+            <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-800 border border-blue-200 font-semibold flex items-center gap-1.5 shadow-2xs">
+              <IbmSymbol className="w-3.5 h-3 text-[#0f62fe] shrink-0" />
+              <span>AI Engine: IBM BOB · Gemini 3.5 Flash</span>
             </span>
           </div>
           <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight">
@@ -727,10 +732,11 @@ export const Bug2FixView: React.FC<Bug2FixViewProps> = ({
               <div className="p-12 text-center rounded-2xl bg-white border border-gray-200 space-y-3">
                 <CheckCircle2 className="w-10 h-10 text-emerald-500 mx-auto" />
                 <h4 className="text-base font-bold text-gray-900 font-sans">
-                  No issues found matching current criteria
+                  No issues matching current filter
                 </h4>
-                <p className="text-xs text-gray-500 font-mono">
-                  Try clearing your filters or select a different file from the table above.
+                <p className="text-xs text-gray-600 font-mono">
+                  {report.bugs.length} total findings detected across repository files.
+                  {fileFilter !== 'all' && ` (Active filter: ${fileFilter})`}
                 </p>
                 <button
                   onClick={() => {
@@ -739,9 +745,9 @@ export const Bug2FixView: React.FC<Bug2FixViewProps> = ({
                     setFileFilter('all');
                     setSearchQuery('');
                   }}
-                  className="px-4 py-2 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-800 text-xs font-mono font-medium transition cursor-pointer"
+                  className="px-4 py-2 rounded-xl bg-[#0f172a] hover:bg-black text-white text-xs font-mono font-semibold transition cursor-pointer shadow-sm"
                 >
-                  Reset All Filters
+                  View All {report.bugs.length} Repository Findings
                 </button>
               </div>
             ) : (
