@@ -32,8 +32,3 @@ Make sure you have the following installed or available:
 - A modern web browser
 - Git
 - A code editor such as Visual Studio Code
-
-### Clone the Repository
-
-```bash
-git clone https://github.com/lavanyaraavi098/runtime-minds.git
